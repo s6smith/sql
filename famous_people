@@ -1,0 +1,42 @@
+/*In this project, you’re going to make your own table with some small set of “famous people”, then make more tables about things they do and join those to create nice human readable lists.
+
+For example, here are types of famous people and the questions your data could answer:
+
+- Movie stars: What movies are they in? Are they married to each other?
+- Singers: What songs did they write? Where are they from?
+- Authors: What books did they write?
+- Fictional characters: How are they related to other characters? What books do they show up in?*/
+
+CREATE TABLE celebs (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name TEXT,
+    craft TEXT,
+    known_for TEXT);
+
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('zendaya coleman', 'actor', 'euphoria');
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('tom holland', 'actor', 'spiderman');
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('ice spice', 'rapper', 'that boys a liar pt 2');
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('lil nas', 'rapper', 'montero');
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('doja cat', 'rapper', 'moo');
+INSERT INTO celebs (full_name, craft, known_for) VALUES ('noah schnapp', 'actor', 'stranger things');
+
+CREATE table linked (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER,
+    connection TEXT);
+
+INSERT INTO linked (person1_id, person2_id, connection)
+    VALUES (1, 2, 'dating/work');
+INSERT INTO linked (person1_id, person2_id, connection)
+    VALUES (3, 4, 'dressed up like them');
+INSERT INTO linked (person1_id, person2_id, connection)
+    VALUES (5, 6, 'internet beef');
+
+SELECT full_name as 'name', craft, known_for as 'known for' FROM celebs;
+
+SELECT a.full_name, b.full_name, linked.connection FROM linked
+    JOIN celebs a
+    ON a.id = linked.person1_id
+    JOIN celebs b
+    ON b.id = linked.person2_id;
+    
